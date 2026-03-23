@@ -1,0 +1,28 @@
+# Build output
+bin/
+obj/
+.vs/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and runtime
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Tests / coverage
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Local databases
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
