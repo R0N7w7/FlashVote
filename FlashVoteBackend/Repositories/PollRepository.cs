@@ -53,5 +53,12 @@ namespace FlashVoteBackend.Repositories
             option.VoteCount++;
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> DeletePollAsync(Guid pollId) { 
+            var poll = await _context.Polls.FindAsync(pollId);
+            if (poll == null) return false;
+            _context.Polls.Remove(poll);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

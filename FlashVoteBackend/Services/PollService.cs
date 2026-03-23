@@ -45,5 +45,7 @@ namespace FlashVoteBackend.Services
 
             return success;
         }
+
+        public Task<bool> DeletePollAsync(Guid pollId) => _repository.DeletePollAsync(pollId);
     }
 }

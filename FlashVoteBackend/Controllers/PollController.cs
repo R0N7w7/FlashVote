@@ -65,5 +65,17 @@ namespace FlashVoteBackend.Controllers
             }
             return Ok(success);
         }
+
+        // DELETE: api/poll/{id}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> DeletePoll(Guid id)
+        {
+            var success = await _pollService.DeletePollAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+            return Ok(success);
+        }
     }
 }
