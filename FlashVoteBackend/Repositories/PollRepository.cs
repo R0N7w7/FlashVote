@@ -17,17 +17,7 @@ namespace FlashVoteBackend.Repositories
 
         public async Task<List<Poll>> GetAllAsync()
         {
-            // Regresar solo el titulo, descripcion, e isExpired
             return await _context.Polls
-                .Select(p => new Poll
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Description = p.Description,
-                    CreatedAt = p.CreatedAt,
-                    ExpiresAt = p.ExpiresAt,
-                    IsClosed = p.IsClosed
-                })
                 .ToListAsync();
         }
 

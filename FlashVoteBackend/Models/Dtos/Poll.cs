@@ -16,4 +16,11 @@
         public bool IsClosed { get; set; }
         public List<string> Options { get; set; } = new();
     }
+
+    public record ResponsePollDto(
+        Guid Id,
+        string Title,
+        string Description,
+        DateTime? ExpiresAt
+    );
 }

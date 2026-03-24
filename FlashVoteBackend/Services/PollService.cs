@@ -16,9 +16,19 @@ namespace FlashVoteBackend.Services
             _hubContext = hubContext;
         }
 
-        public Task<List<Poll>> GetAllAsync() => _repository.GetAllAsync();
-        public Task<Poll?> GetByIdAsync(Guid id) => _repository.GetByIdAsync(id);
-        public Task<Poll> CreateAsync(CreatePollDto newPoll)
+        public async Task<List<ResponsePollDto>> GetAllAsync()
+        {
+            var polls = await _repository.GetAllAsync();
+            return polls.Select(pol => new ResponsePollDto(
+                pol.Id,
+                pol.Title,
+                pol.Description,
+                pol.ExpiresAt
+            )).ToList();
+        }
+
+        public async Task<Poll?> GetByIdAsync(Guid id) => await _repository.GetByIdAsync(id);
+        public async Task<Poll> CreateAsync(CreatePollDto newPoll)
         {
             var poll = new Poll
             {
@@ -30,7 +40,7 @@ namespace FlashVoteBackend.Services
                 CreatedAt = DateTime.UtcNow,
                 IsClosed = false,
             };
-            return _repository.CreateAsync(poll);
+            return await _repository.CreateAsync(poll);
         }
 
         public async Task<bool> VoteAsync(Guid pollId, Guid optionId)
@@ -46,6 +56,6 @@ namespace FlashVoteBackend.Services
             return success;
         }
 
-        public Task<bool> DeletePollAsync(Guid pollId) => _repository.DeletePollAsync(pollId);
+        public async Task<bool> DeletePollAsync(Guid pollId) => await _repository.DeletePollAsync(pollId);
     }
 }

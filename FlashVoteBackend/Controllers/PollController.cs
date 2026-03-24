@@ -34,9 +34,9 @@ namespace FlashVoteBackend.Controllers
 
         // GET: api/poll
         [HttpGet]
-        public async Task<ActionResult<List<Poll>>> GetAllPolls()
+        public async Task<ActionResult<List<ResponsePollDto>>> GetAllPolls()
         {
-            var polls = await _pollService.GetAllAsync();
+            List<ResponsePollDto> polls = await _pollService.GetAllAsync();
             return Ok(polls);
         }
 
