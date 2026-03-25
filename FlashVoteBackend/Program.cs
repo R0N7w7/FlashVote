@@ -6,10 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<PollRepository>();
@@ -37,12 +35,10 @@ builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi(); // Genera el JSON en /openapi/v1.json
+    app.MapOpenApi();
 
-    // Activa la interfaz visual
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/openapi/v1.json", "FlashVote v1");
