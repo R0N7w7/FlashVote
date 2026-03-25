@@ -37,11 +37,12 @@ namespace FlashVoteBackend.Repositories
 
         public async Task<bool> VoteAsync(Guid optionId)
         {
-            var option = await _context.Options.FindAsync(optionId);
-            if (option == null) return false;
-
-            option.VoteCount++;
-            return await _context.SaveChangesAsync() > 0;
+            var result = await _context.Options
+                .Where(o => o.Id == optionId)
+                .ExecuteUpdateAsync(setters =>
+                    setters.SetProperty(o => o.VoteCount, o => o.VoteCount + 1)
+                );
+            return result > 0;
         }
 
         public async Task<bool> DeletePollAsync(Guid pollId) { 
